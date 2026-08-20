@@ -12,10 +12,29 @@
       <div class="brand">SMART INVENTORY</div>
       <div class="subtitle">Purchase • Sales • Stock • Profit</div>
     </div>
-    <button id="clearAllBtn" class="danger-outline">Clear All Data</button>
+    <div class="top-actions">
+      <span id="cloudStatus" class="cloud-status">Local mode</span>
+      <button id="loginBtn" class="secondary-btn">Cloud Login</button>
+      <button id="clearAllBtn" class="danger-outline">Clear All Data</button>
+    </div>
   </header>
 
   <main class="container">
+    <section id="authPanel" class="auth-panel hidden">
+      <div>
+        <span class="eyebrow">FREE CLOUD SYNC</span>
+        <h2>Cloud account</h2>
+        <p>Use a free Supabase account to sync inventory between your phone and computer.</p>
+      </div>
+      <div class="auth-fields">
+        <input type="email" id="authEmail" placeholder="Email">
+        <input type="password" id="authPassword" placeholder="Password">
+        <button id="signUpBtn" class="secondary-btn">Create Account</button>
+        <button id="signInBtn" class="primary pink-btn">Sign In</button>
+        <button id="signOutBtn" class="danger-outline">Sign Out</button>
+      </div>
+    </section>
+
     <section class="stats">
       <div class="stat-card">
         <span>Total Purchases</span>
@@ -186,6 +205,19 @@
       </div>
     </section>
 
+    <section class="tools-panel">
+      <div>
+        <span class="eyebrow">FREE TOOLS</span>
+        <h2>Backup & Reports</h2>
+        <p>Download your data whenever you want. These files are generated directly in your browser.</p>
+      </div>
+      <div class="tool-buttons">
+        <button id="backupBtn" class="secondary-btn">Backup JSON</button>
+        <button id="csvBtn" class="secondary-btn">Export CSV</button>
+        <button id="pdfBtn" class="secondary-btn">Generate PDF Report</button>
+      </div>
+    </section>
+
     <section class="profit-panel">
       <div>
         <span class="eyebrow">BUSINESS SUMMARY</span>
@@ -202,6 +234,8 @@
   </main>
 
   <footer>Smart Inventory • Data is saved automatically in this browser.</footer>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
