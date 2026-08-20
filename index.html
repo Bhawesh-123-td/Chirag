@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Inventory — Purchase & Sales</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <div class="brand">SMART INVENTORY</div>
+      <div class="subtitle">Purchase • Sales • Stock • Profit</div>
+    </div>
+    <button id="clearAllBtn" class="danger-outline">Clear All Data</button>
+  </header>
+
+  <main class="container">
+    <section class="stats">
+      <div class="stat-card">
+        <span>Total Purchases</span>
+        <strong id="totalPurchase">Rs. 0.00</strong>
+      </div>
+      <div class="stat-card">
+        <span>Total Sales</span>
+        <strong id="totalSales">Rs. 0.00</strong>
+      </div>
+      <div class="stat-card">
+        <span>Cost of Goods Sold</span>
+        <strong id="totalCOGS">Rs. 0.00</strong>
+      </div>
+      <div class="stat-card profit">
+        <span>Profit</span>
+        <strong id="totalProfit">Rs. 0.00</strong>
+      </div>
+    </section>
+
+    <section class="entry-grid">
+      <div class="invoice-card purchase-card">
+        <div class="card-heading">
+          <div>
+            <span class="tag pink">PURCHASE</span>
+            <h2>Purchase from Business</h2>
+          </div>
+          <span class="invoice-symbol">P</span>
+        </div>
+
+        <form id="purchaseForm">
+          <div class="row">
+            <label>Date
+              <input type="date" id="purchaseDate" required>
+            </label>
+            <label>Invoice No.
+              <input type="text" id="purchaseInvoice" placeholder="P-001">
+            </label>
+          </div>
+
+          <label>Product
+            <input type="text" id="purchaseProduct" placeholder="e.g. Rice 25kg" required>
+          </label>
+
+          <div class="row three">
+            <label>Quantity
+              <input type="number" id="purchaseQty" min="0.01" step="0.01" required>
+            </label>
+            <label>Unit Cost
+              <input type="number" id="purchasePrice" min="0" step="0.01" required>
+            </label>
+            <label>Total
+              <input type="text" id="purchaseTotal" value="Rs. 0.00" readonly>
+            </label>
+          </div>
+
+          <button class="primary pink-btn" type="submit">+ Add Purchase</button>
+        </form>
+      </div>
+
+      <div class="invoice-card sale-card">
+        <div class="card-heading">
+          <div>
+            <span class="tag yellow">SALE</span>
+            <h2>Sold to Consumer</h2>
+          </div>
+          <span class="invoice-symbol">S</span>
+        </div>
+
+        <form id="saleForm">
+          <div class="row">
+            <label>Date
+              <input type="date" id="saleDate" required>
+            </label>
+            <label>Invoice No.
+              <input type="text" id="saleInvoice" placeholder="S-001">
+            </label>
+          </div>
+
+          <label>Product
+            <input type="text" id="saleProduct" placeholder="e.g. Rice 25kg" required>
+          </label>
+
+          <div class="row three">
+            <label>Quantity
+              <input type="number" id="saleQty" min="0.01" step="0.01" required>
+            </label>
+            <label>Selling Price
+              <input type="number" id="salePrice" min="0" step="0.01" required>
+            </label>
+            <label>Total
+              <input type="text" id="saleTotal" value="Rs. 0.00" readonly>
+            </label>
+          </div>
+
+          <div id="saleStockHint" class="hint">Enter a product to see available stock.</div>
+          <button class="primary yellow-btn" type="submit">+ Add Sale</button>
+        </form>
+      </div>
+    </section>
+
+    <section class="inventory-panel">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">LIVE STOCK</span>
+          <h2>Inventory</h2>
+        </div>
+        <input id="inventorySearch" class="search" placeholder="Search products...">
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Purchased Qty</th>
+              <th>Sold Qty</th>
+              <th>Stock</th>
+              <th>Avg. Cost</th>
+              <th>Stock Value</th>
+            </tr>
+          </thead>
+          <tbody id="inventoryBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="history-grid">
+      <div class="history-card">
+        <div class="section-head">
+          <div>
+            <span class="tag pink">PURCHASES</span>
+            <h2>Purchase History</h2>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Date</th><th>Product</th><th>Qty</th><th>Unit Cost</th><th>Total</th><th></th></tr>
+            </thead>
+            <tbody id="purchaseHistory"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="history-card">
+        <div class="section-head">
+          <div>
+            <span class="tag yellow">SALES</span>
+            <h2>Sales History</h2>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Date</th><th>Product</th><th>Qty</th><th>Selling Price</th><th>Total</th><th>Profit</th><th></th></tr>
+            </thead>
+            <tbody id="salesHistory"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="profit-panel">
+      <div>
+        <span class="eyebrow">BUSINESS SUMMARY</span>
+        <h2>Profit Calculation</h2>
+      </div>
+      <div class="profit-grid">
+        <div><span>Revenue</span><strong id="summaryRevenue">Rs. 0.00</strong></div>
+        <div><span>Purchase Expenditure</span><strong id="summaryPurchases">Rs. 0.00</strong></div>
+        <div><span>COGS</span><strong id="summaryCOGS">Rs. 0.00</strong></div>
+        <div class="highlight"><span>Net Trading Profit</span><strong id="summaryProfit">Rs. 0.00</strong></div>
+      </div>
+      <p class="note">Profit uses a weighted-average purchase cost for each product at the time it is sold. Unsold stock is not counted as an expense until it is sold.</p>
+    </section>
+  </main>
+
+  <footer>Smart Inventory • Data is saved automatically in this browser.</footer>
+  <script src="app.js"></script>
+</body>
+</html>
