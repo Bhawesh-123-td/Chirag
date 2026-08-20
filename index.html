@@ -55,6 +55,15 @@
             </label>
           </div>
 
+          <div class="row">
+            <label>Vendor Name
+              <input type="text" id="purchaseVendor" placeholder="Business / Supplier name">
+            </label>
+            <label>Vendor PAN No.
+              <input type="text" id="purchasePAN" placeholder="PAN number">
+            </label>
+          </div>
+
           <label>Product
             <input type="text" id="purchaseProduct" placeholder="e.g. Rice 25kg" required>
           </label>
@@ -152,7 +161,7 @@
         <div class="table-wrap">
           <table>
             <thead>
-              <tr><th>Date</th><th>Product</th><th>Qty</th><th>Unit Cost</th><th>Total</th><th></th></tr>
+              <tr><th>Date</th><th>Vendor</th><th>PAN No.</th><th>Product</th><th>Qty</th><th>Unit Cost</th><th>Total</th><th></th></tr>
             </thead>
             <tbody id="purchaseHistory"></tbody>
           </table>

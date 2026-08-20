@@ -60,9 +60,10 @@ function render(){
 
   const purchases=transactions.filter(t=>t.type==="purchase").sort((a,b)=>b.created-a.created);
   $("purchaseHistory").innerHTML=purchases.length?purchases.map(t=>`
-    <tr><td>${t.date}</td><td>${esc(t.product)}</td><td>${fmtQty(t.qty)}</td><td>${money(t.price)}</td>
+    <tr><td>${t.date}</td><td>${esc(t.vendor||"—")}</td><td>${esc(t.pan||"—")}</td>
+    <td>${esc(t.product)}</td><td>${fmtQty(t.qty)}</td><td>${money(t.price)}</td>
     <td>${money(t.qty*t.price)}</td><td><button class="delete" onclick="removeTx('${t.id}')">Delete</button></td></tr>`
-  ).join(""):`<tr><td colspan="6" class="empty">No purchases yet.</td></tr>`;
+  ).join(""):`<tr><td colspan="8" class="empty">No purchases yet.</td></tr>`;
 
   const sales=transactions.filter(t=>t.type==="sale").sort((a,b)=>b.created-a.created);
   $("salesHistory").innerHTML=sales.length?sales.map(t=>`
@@ -93,7 +94,16 @@ $("purchaseForm").addEventListener("submit",e=>{
   e.preventDefault();
   const qty=Number($("purchaseQty").value), price=Number($("purchasePrice").value);
   if(qty<=0||price<0)return;
-  transactions.push({id:crypto.randomUUID(),type:"purchase",date:$("purchaseDate").value,invoice:$("purchaseInvoice").value.trim(),product:$("purchaseProduct").value.trim(),qty,price,created:Date.now()});
+  transactions.push({
+    id:crypto.randomUUID(),
+    type:"purchase",
+    date:$("purchaseDate").value,
+    invoice:$("purchaseInvoice").value.trim(),
+    vendor:$("purchaseVendor").value.trim(),
+    pan:$("purchasePAN").value.trim(),
+    product:$("purchaseProduct").value.trim(),
+    qty,price,created:Date.now()
+  });
   e.target.reset(); $("purchaseDate").value=today(); save(); updateTotals();
 });
 
